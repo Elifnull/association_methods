@@ -47,12 +47,23 @@ class User:
         self.account = Bankaccount()
         self.second = second
         if self.second == True:
-            self.second = Bankaccount()
+            self.account = {"checking" : Bankaccount(), 
+            "saving" : Bankaccount()}
+        else:
+            self.account = Bankaccount()
 
     def make_deposit(self, amount):
-        self.account.balance += amount
+        if self.second == True:
+            account = input("checking or saving account?")
+            if account == "checking":
+                self.account["checking"].balance += amount
+            else:
+                self.account["saving"].balance += amount
+        else:
+            self.account.balance += amount
         print(f'thank you for the deposit {self.name}, your account balance is ${self.account.balance}')
         return self
+
     def make_withdrawl(self, amount):
         if amount > self.account.balance:
             self.account.balance -= 5
@@ -60,15 +71,17 @@ class User:
         else:
             self.account.balance -= amount
         return self
+        
     def display_Balance(self):
         print(f'Current Balance: ${self.account.balance}')
         return self
 
 
 levi = User("levi", "levi@me", True)
-
-levi.second.deposit(100)
-levi.second.display_account_info()
+levi.make_deposit(100)
+print(levi.account["checking"].balance)
+# levi.make_deposit(100)
+# levi.second.display_account_info()
 
 
 # levi.make_deposit(100)
