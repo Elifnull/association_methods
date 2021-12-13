@@ -41,11 +41,14 @@ class Bankaccount:
             account.display_account_info()
 
 class User:
-    def __init__(self, name:str, email:str, accounts=False):
+    def __init__(self, name:str, email:str, second=False):
         self.name = name
         self.email = email
         self.account = Bankaccount()
-        
+        self.second = second
+        if self.second == True:
+            self.second = Bankaccount()
+
     def make_deposit(self, amount):
         self.account.balance += amount
         print(f'thank you for the deposit {self.name}, your account balance is ${self.account.balance}')
@@ -62,10 +65,14 @@ class User:
         return self
 
 
-levi = User("levi", "levi@me")
+levi = User("levi", "levi@me", True)
 
-levi.make_deposit(100)
-levi.display_Balance()
+levi.second.deposit(100)
+levi.second.display_account_info()
+
+
+# levi.make_deposit(100)
+# levi.display_Balance()
 #could use this syntax instead: levi.account.display_account_info()
 
 # olga = Bankaccount(.07, 1000).deposit(750).deposit(5).deposit(75).withdrawl(775).yield_intrest().display_account_info()
